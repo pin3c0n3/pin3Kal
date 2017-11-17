@@ -1,0 +1,176 @@
+## Conky
+background yes
+out_to_console no
+top_cpu_separate yes
+max_port_monitor_connections 256
+cpu_avg_samples 1
+net_avg_samples 1
+update_interval 1
+times_in_seconds true
+
+# Text    
+uppercase no
+override_utf8_locale yes
+font Bitstream Charter:style=Regular
+use_xft yes
+xftfont Vibrocentric:size=8
+
+# Window
+own_window yes
+own_window_class Conky
+#own_window_transparent yes
+own_window_transparent no
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+#own_window_type override
+own_window_type desktop
+own_window_colour 111111
+
+# Graphics
+double_buffer yes
+draw_borders no
+draw_graph_borders yes
+draw_shades yes
+draw_outline no
+#default_bar_size 3,250
+
+# Layout
+alignment top_right
+gap_x 5
+gap_y 35
+maximum_width 250
+minimum_size 1000
+
+# Colors
+default_shade_color 000000
+default_outline_color 000000
+default_color ffffff
+color1 008FCC
+color2 b2b2b2
+color3 0000ff
+color7 00ff00
+color8 ffff00
+color9 ff0000
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+#${image $HOME/Pictures/75kx.jpg -p 120,0 -s 150x100}
+#${image $HOME/Pictures/kali.jpg -p 130,0 -s 150x100}
+#${image $HOME/Pictures/kali1.jpg -p 100,0 -s 150x100}
+#${image $HOME/Pictures/kali2.jpg -p 130,0 -s 150x100}
+${image /root/startup_scripts/conky_scripts/kali3.png -p 100,0 -s 150x100}
+${color1}${font Vibrocentric:style=bold:size=14}Kali Linux $font${color3}
+#${hr 0}$color
+${color2}Kernel:$color ${kernel}
+${color2}Host:$color ${nodename}
+${color2}User:$color ${exec whoami}
+${color2}Uptime:$color ${format_time $uptime "\dd \hh \mm \ss"}
+${color2}AC Adaptor:$color ${acpiacadapter}
+${color2}Time Remaining: $color${exec acpi -V | grep -m1 Battery | cut -d "," -f 3}
+#${color2}Battery: $color${exec acpi -V | grep -m1 Battery | cut -d "," -f 2}
+${color2}Battery: $color${battery_percent BAT1}%${alignr}${battery_bar 3,160 BAT1}
+#
+#Processor
+${color1}${font Vibrocentric:style=bold:size=14}Processor $font${color3}${voffset 1}${hr 0}$color
+${color}${exec cat /proc/cpuinfo | grep 'model name' | sort -u | cut -c14-39}
+${color2}Frequency - ${color}${freq 1} MHz
+${color2}CPU 1 Usage: $color${cpu cpu0}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 0" | awk '{print $3}'}
+${voffset -4}${cpubar cpu0 3,250}
+${color2}CPU 2 Usage: $color${cpu cpu1}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 0" | awk '{print $3}'}
+${voffset -4}${cpubar cpu1 3,250}
+${color2}CPU 3 Usage: $color${cpu cpu2}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 1" | awk '{print $3}'}
+${voffset -4}${cpubar cpu2 3,250}
+${color2}CPU 4 Usage: $color${cpu cpu3}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 1" | awk '{print $3}'}
+${voffset -4}${cpubar cpu3 4,250}
+${color2}CPU 5 Usage: $color${cpu cpu4}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 2" | awk '{print $3}'}
+${voffset -4}${cpubar cpu4 4,250}
+${color2}CPU 6 Usage: $color${cpu cpu5}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 2" | awk '{print $3}'}
+${voffset -4}${cpubar cpu5 3,250}
+${color2}CPU 7 Usage: $color${cpu cpu6}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 3" | awk '{print $3}'}
+${voffset -4}${cpubar cpu6 3,250}
+${color2}CPU 8 Usage: $color${cpu cpu7}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 3" | awk '{print $3}'}
+${voffset -4}${cpubar cpu7 3,250}
+${color2}Overall Usage: $color$cpu% ${alignr}${color2}Temp: $color ${exec sensors| grep "Package" | awk '{print $4}'}
+${color}${cpugraph 20,250 3299cc 3299cc}
+#
+#Top Processes
+${color1}${font Vibrocentric:style=bold:size=14}Top Processes $font${color3}${voffset 1}${hr 0}$color
+${color2}Name${goto 133}PID${goto 175}CPU%${goto 220}RAM%$color
+${top name 1}${goto 125}${top pid 1}${goto 170}${top cpu 1}${goto 215}${top mem 1}
+${top name 2}${goto 125}${top pid 2}${goto 170}${top cpu 2}${goto 215}${top mem 2}
+${top name 3}${goto 125}${top pid 3}${goto 170}${top cpu 3}${goto 215}${top mem 3}
+${top name 4}${goto 125}${top pid 4}${goto 170}${top cpu 4}${goto 215}${top mem 4}
+${top name 5}${goto 125}${top pid 5}${goto 170}${top cpu 5}${goto 215}${top mem 5}
+#
+#Memory
+${color1}${font Vibrocentric:style=bold:size=14}Memory $font${color3}${voffset 1}${hr 0}$color
+${color2}RAM:$color $mem/$memmax  ${alignr}$memperc%
+${voffset -4}${membar 3,250}
+${color2}Swap:$color $swap/$swapmax ${alignr}$swapperc%
+${voffset -4}${swapbar 3,250}
+#
+#Top Memory
+${color1}${font Vibrocentric:style=bold:size=14}Top Memory $font${color3}${voffset 1}${hr 0}$color
+${color2}Name${goto 133}PID${goto 175}CPU%${goto 220}RAM%$color
+${top_mem name 1}${goto 125}${top_mem pid 1}${goto 170}${top_mem cpu 1}${goto 215}${top_mem mem 1}
+${top_mem name 2}${goto 125}${top_mem pid 2}${goto 170}${top_mem cpu 2}${goto 215}${top_mem mem 2}
+${top_mem name 3}${goto 125}${top_mem pid 3}${goto 170}${top_mem cpu 3}${goto 215}${top_mem mem 3}
+${top_mem name 4}${goto 125}${top_mem pid 4}${goto 170}${top_mem cpu 4}${goto 215}${top_mem mem 4}
+${top_mem name 5}${goto 125}${top_mem pid 5}${goto 170}${top_mem cpu 5}${goto 215}${top_mem mem 5}
+#
+#GPU
+#${exec nvidia-smi}
+#${color1}${font Vibrocentric:style=bold:size=14}GPU $font${color3}${voffset 1}${hr 0}$color
+#${color2}Utilization:${color}${exec nvidia-smi -q -d UTILIZATION | grep Gpu | cut -d ":" -f2}
+#${color2}Total Memory:$color ${exec nvidia-smi -q -d MEMORY|grep -A 3 'FB Memory' | grep 'Total' | cut -c 38-46}
+#${color2}Temp: ${color}${exec nvidia-smi -q -d TEMPERATURE | grep Current | cut -d ":" -f2}
+#${color2}Used Memory:$color ${exec nvidia-smi -q -d MEMORY|grep -A 3 'FB Memory' | grep 'Used' | cut -c 38-45} ${alignr}${exec /root/conky_scripts/mem_bar.sh}%
+#${execbar /root/conky_scripts/mem_bar.sh 3,200}
+#
+#Disks
+${color1}${font Vibrocentric:style=bold:size=14}Disks $font${color3}${voffset 1}${hr 0}$color
+${color2}Root:$color ${fs_used /}/${fs_size /}  ${alignr}${fs_used_perc /}% Used
+${voffset -4}${fs_bar 3,250}
+${color2}Drive I/O: $color${diskio /dev/sda}
+${color2}${goto 45}Read${color2}${goto 180}Write
+${color}${voffset -4}${diskiograph_read /dev/sda 15,120 3299cc 3299cc}${alignr}${color}${diskiograph_write /dev/sda 15,120 3299cc 3299cc}
+#
+#${if_existing /media/STUFF}
+#${color2}STUFF: $color${fs_used /media/STUFF}/${fs_size /media/STUFF} ${alignr}${fs_free_perc /media/STUFF}% Free
+#${color2}Read${color}${diskiograph_read /dev/sdc 9,95 000033 3299cc} ${color2}Write${color}${diskiograph_write /dev/sdc 9,95 000033 3299cc}${endif}${if_existing /media/NASTE}
+#${color2}NASTE: $color${fs_used /media/NASTE}/${fs_size /media/NASTE} ${alignr}${fs_free_perc /media/NASTE}% Free
+#${color2}Read${color}${diskiograph_read /dev/sdc1 9,95 000033 3299cc} ${color2}Write${color}${diskiograph_write /dev/sdc1 9,95 000033 3299cc}${endif}
+#
+#Network
+${if_existing /sys/class/net/wlan0/operstate up}${color1}${font Vibrocentric:style=bold:size=14}Wireless $font${color3}${voffset 1}${hr 0}$color
+${color2}SSID:$color${goto 40}${wireless_essid wlan0}${alignr}${color2}Signal: $color${wireless_link_qual wlan0}/${wireless_link_qual_max wlan0}
+${voffset -4}${alignr}${wireless_link_bar 3,250 wlan0}
+${color2}Local:$color${alignr}${addr wlan0}
+${color2}Public:$color${alignr}${execi 60 wget -qO- http://ipecho.net/plain ; echo}
+${color2}Location:$color${alignr}${execi 60 wget -qO- http://ip-api.com/json | cut -d '"' -f8}
+${color2}VPN Status:$color${alignr}${if_up tun0}Connected${else}Disconnected${endif}
+${color2}Permanent MAC:$color${alignr}34:68:95:59:33:49
+${color2}Current MAC:$color${alignr}${execi 60 ip link show wlan0 | awk '/ether/ {print $2}'}
+${color}${downspeedgraph wlan0 20,120 3299cc 3299cc}${alignr}${color}${upspeedgraph wlan0 20,120 3299cc 3299cc}$color
+${color2}Down: $color${goto 45}${downspeedf wlan0} kB/s${goto 135}${color2}Up:$color${goto 170}${upspeedf wlan0} kB/s
+${color2}Total:$color${goto 45}${totaldown wlan0} ${goto 135}${color2}Total:$color${goto 170}${totalup wlan0}
+#
+${else}${if_existing /sys/class/net/eth0/operstate up}${color1}${font Vibrocentric:style=bold:size=14}Ethernet $font${color3}${voffset 1}${hr 0}$color
+${color2}Local:$color${alignr}${addr eth0}
+${color2}Public:$color${alignr}${execi 60 wget -qO- http://ipecho.net/plain ; echo}
+${color2}Location:$color${alignr}${execi 60 wget -qO- http://ip-api.com/json | cut -d '"' -f8}
+${color2}VPN Status:$color${alignr}${if_up tun0}Connected${else}Disconnected${endif}
+${color2}Permanent MAC:$color${alignr}d8:cb:8a:ef:96:a5
+${color2}Current MAC:$color${alignr}${execi 60 ip link show eth0 | awk '/ether/ {print $2}'}
+${color}${downspeedgraph eth0 20,120 3299cc 3299cc}${alignr}${color}${upspeedgraph eth0 20,120 3299cc 3299cc}$color
+${color2}Down: $color${goto 45}${downspeedf eth0} kB/s${goto 135}${color2}Up:$color${goto 170}${upspeedf eth0} kB/s
+${color2}Total:$color${goto 45}${totaldown eth0} ${goto 135}${color2}Total:$color${goto 170}${totalup eth0}
+#
+${else}${if_existing /sys/class/net/mon0/operstate unknown}${color1}${font Vibrocentric:style=bold:size=14}Sniffing $font${color3}${voffset 1}${hr 0}$color
+${color}${downspeedgraph mon0 20,120 3299cc 3299cc}${alignr}${color}${upspeedgraph mon0 20,120 3299cc 3299cc}$color
+${color2}Down: $color${goto 45}${downspeedf mon0} kB/s${goto 135}${color2}Up:$color${goto 170}${upspeedf mon0} kB/s
+${color2}Total:$color${goto 45}${totaldown mon0} ${goto 135}${color2}Total:$color${goto 170}${totalup mon0}${endif}
+#
+#Connections
+${color1}${font Vibrocentric:style=bold:size=14}Connections $font${color3}${voffset 1}${hr 0}$color
+${exec /root/startup_scripts/conky_scripts/network_established}

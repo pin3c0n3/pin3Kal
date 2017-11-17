@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#netstat -putw | grep ESTABLISHED | tr -s " " | cut -d " " -f 5,7 | awk 'BEGIN {FS=OFS=" "} {print $2,$1}'
+
+#netstat -putwn | grep ESTABLISHED | tr -s " " | cut -d " " -f 5,7 | awk 'BEGIN {FS=OFS=" "} {print $2,$1}' | sed 's/\// /g' | sed 's/ /   /g'
+
+netstat -atnp | grep ESTABLISHED | tr -s " " | cut -d " " -f 5,7 | awk 'BEGIN {FS=OFS=" "} {print $2,$1}' | sed 's/\// /g' | sed 's/ /   /g'

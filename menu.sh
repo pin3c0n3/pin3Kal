@@ -4,7 +4,7 @@
 PS3='Think twice, enter once: '
 
 #input optiopns
-options=("1-Upgrade-Standard" "2-Upgrade-Dist" "3-Upgrade-Headers" "4-Video-Drivers-Install" "5-Video-Test" "6-Keyboard-Install" "7-VPN-Install" "8-Startup-Settings" "9-Exit")
+options=("1-Upgrade-Standard" "2-Upgrade-Dist" "3-Upgrade-Headers" "4-Sources-Update" "5-Video-Drivers-Install" "6-Video-Test" "7-Keyboard-Install" "8-VPN-Install" "9-Startup-Settings" "10-OpenVAS-Install" "11-Burp-Plugins" "12-Conky-Install" "13-Exit")
 
 #function to display optiosn nice
 function optionsClean() {
@@ -13,7 +13,7 @@ function optionsClean() {
 	done
 }
 
-printf "\033[1;47m  Version 0.9.0 - pin3Kal\033[1;m\n\033[1;46m  Created by Philip Kohn | https://www.philipkohn.com | @pin3c0n3  \033[1;m\n"
+printf "\033[1;47m  Version 0.9.5 - pin3Kal\033[1;m\n\033[1;46m  Created by Philip Kohn | https://www.philipkohn.com | @pin3c0n3  \033[1;m\n"
 
 #define what to do for each option
 select opt in "${options[@]}"
@@ -24,6 +24,7 @@ do
 		apt-get update
 		printf "\033[1;41m Starting apt-get upgrade...\x1b[0m\n\n"
 		apt-get upgrade -y
+		printf "\033[1;41m Done!\x1b[0m\n\n"
 		optionsClean
 		;;
 		"2-Upgrade-Dist")
@@ -31,6 +32,7 @@ do
 		apt-get update
 		printf "\033[1;41m Starting apt-get dist-upgrade...\x1b[0m\n\n"
 		apt-get dist-upgrade -y
+		printf "\033[1;41m Done!\x1b[0m\n\n"
 		optionsClean
 		;;
 		"3-Upgrade-Headers")
@@ -38,9 +40,16 @@ do
 		apt-get update
 		printf "\033[1;41m Starting apt-get install -y linux-headers-$(uname -r)...\x1b[0m\n\n"
 		apt-get install -y linux-headers-$(uname -r)
+		printf "\033[1;41m Done!\x1b[0m\n\n"
 		optionsClean
 		;;
-		"4-Video-Drivers-Install")
+		"4-Sources-Update")
+		printf "\033[1;41m Setting sources.list to use https...\x1b[0m\n\n"
+		sed -i 's/http:/https:/g' /etc/apt/sources.list
+		printf "\033[1;41m Done!\x1b[0m\n\n"
+		optionsClean
+		;;
+		"5-Video-Drivers-Install")
 		printf "\033[1;41m Blacklisting nouveau...\x1b[0m\n\n"
 		echo "Blacklisting nouveau..."
 		echo '"blacklist nouveau" >>/etc/modprobe.d/nouveau-blacklist.conf'
@@ -58,19 +67,22 @@ do
 		printf "\033[1;41m You need to reboot now!!...\x1b[0m\n\n"
 		break
 		;;
-		"5-Video-Test")
+		"6-Video-Test")
 		printf "\033[1;41m Starting bumblebeed service...\x1b[0m\n\n"
 		service bumblebeed start
+		sleep 3
 		printf "\033[1;41m Launching a video test...\x1b[0m\n\n"
 		optirun -v glxgears
+		printf "\033[1;41m Done!\x1b[0m\n\n"
 		optionsClean
 		;;
-		"6-Keyboard-Install")
+		"7-Keyboard-Install")
 		printf "\033[1;41m Installing keyboard...\x1b[0m\n\n"
 		apt-get install -y msi-keyboard
+		printf "\033[1;41m Done!\x1b[0m\n\n"
 		optionsClean
 		;;
-		"7-VPN-Install")
+		"8-VPN-Install")
 		printf "\033[1;41m Installing VPN modules...\x1b[0m\n\n"
 		apt-get install -y network-manager-openvpn-gnome network-manager-pptp network-manager-pptp-gnome network-manager-strongswan network-manager-vpnc network-manager-vpnc-gnome
 		printf "\033[1;41m Update the network manager...\x1b[0m\n\n"
@@ -92,19 +104,63 @@ do
 		printf "\033[1;41m Open each connection and enter username & password...\x1b[0m\n\n"
 		optionsClean
 		;;
-		"8-Startup-Settings")
+		"9-Startup-Settings")
 		printf "\033[1;41m Telling the system to load a startup script...\x1b[0m\n\n"
 		mkdir .config/autostart
-		printf "[Desktop Entry]\nName=Startup\nGenericName=Stuff to do at Startup\nComment=Crap\nExec=/root/startup_scripts/my_startup_script.sh\nTerminal=false\nType=Application\nX-GNOME-Autostart-enabled=true" > .config/autostart/my_script.desktop
+		printf "[Desktop Entry]\9392nName=Startup\nGenericName=Stuff to do at Startup\nComment=Crap\nExec=/root/startup_scripts/my_startup_script.sh\nTerminal=false\nType=Application\nX-GNOME-Autostart-enabled=true" > .config/autostart/my_script.desktop
 		printf "\033[1;41m Setting what to start...\x1b[0m\n\n"
 		mkdir /root/startup_scripts
 		printf "#!/bin/bash\n\n#Make the keyboard do stuffs\nmsi-keyboard -m normal -c left,sky,high -c middle,sky,high -c right,sky,high\n" > /root/startup_scripts/my_startup_script.sh
 		printf "\033[1;41m Making the script executable...\x1b[0m\n\n"
 		chmod +x /root/startup_scripts/my_startup_script.sh
+		printf "\033[1;41m Done!\x1b[0m\n\n"
+		optionsClean
 		;;
-		"9-Exit")
+		"10-OpenVAS-Install")
+		printf "\033[1;41m Installing OpenVAS...\x1b[0m\n\n"
+		apt-get install -y openvas
+		printf "\033[1;41m Setting up OpenVAS...\x1b[0m\n\n"
+		openvas-setup
+		printf "\033[1;41m Done!\x1b[0m\n\n"
+		optionsClean
+		;;
+		"11-Burp-Plugins")
+		printf "\033[1;41m Making a BurpSuite Folder...\x1b[0m\n\n"
+		mkdir /root/burp
+		printf "\033[1;41m Setting UP git...\x1b[0m\n\n"
+		git init
+		printf "\033[1;41m Downloading Airachnid...\x1b[0m\n\n"
+		git clone https://github.com/SpiderLabs/Airachnid-Burp-Extension.git /root/burp/airachnid
+		printf "\033[1;41m Downloading Autorize...\x1b[0m\n\n"
+                git clone https://github.com/Quitten/Autorize.git /root/burp/autorize
+                printf "\033[1;41m Downloading Burplay...\x1b[0m\n\n"
+                git clone https://github.com/SpiderLabs/burplay.git /root/burp/burplay
+		printf "\033[1;41m Downloading HUNT...\x1b[0m\n\n"
+                git clone https://github.com/bugcrowd/HUNT.git /root/burp/hunt
+		optionsClean
+		;;
+		"12-Conky-Install")
+		printf "\033[1;41m Installing lm-sensors...\x1b[0m\n\n"
+		apt-get install -y lm-sensors
+		printf "\033[1;41m Detecting sensors...type yes to all questions...\x1b[0m\n\n"
+		sensors-detect
+		printf "\033[1;41m Testing detected sensors...\x1b[0m\n\n"
+		sensors
+		read -n 1 -s -r -p "Press any key to continue"
+		printf "\033[1;41m Installing conky...\x1b[0m\n\n"
+		apt-get install -y conky conky-all
+		printf "\033[1;41m Copying some files...\x1b[0m\n\n"
+		cp conky/conkyrc ~/.conkyrc
+		cp -r conky/conky_scripts/ /root/startup_scripts/ 
+		printf "\033[1;41m Adding conky to startup...\x1b[0m\n\n"
+		printf "\n#Start Conky \nconky\n" >> /root/startup_scripts/my_startup_script.sh
+		printf "\033[1;41m Done!\x1b[0m\n\n"
+		optionsClean
+		;;
+		"13-Exit")
 		break
 		;;
 		*) Invalid option ;;
 	esac
 done
+

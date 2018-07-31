@@ -106,8 +106,8 @@ do
 		;;
 		"9-Startup-Settings")
 		printf "\033[1;41m Telling the system to load a startup script...\x1b[0m\n\n"
-		mkdir ~/.config/autostart
-		printf "[Desktop Entry]\9392nName=Startup\nGenericName=Stuff to do at Startup\nComment=Crap\nExec=/root/startup_scripts/my_startup_script.sh\nTerminal=false\nType=Application\nX-GNOME-Autostart-enabled=true" > ~/.config/autostart/my_script.desktop
+		mkdir /root/.config/autostart
+		printf "[Desktop Entry]\9392nName=Startup\nGenericName=Stuff to do at Startup\nComment=Crap\nExec=/root/startup_scripts/my_startup_script.sh\nTerminal=false\nType=Application\nX-GNOME-Autostart-enabled=true" > /root/.config/autostart/my_script.desktop
 		printf "\033[1;41m Setting what to start...\x1b[0m\n\n"
 		mkdir /root/startup_scripts
 		printf "#!/bin/bash\n\n#Make the keyboard do stuffs\nmsi-keyboard -m normal -c left,sky,high -c middle,sky,high -c right,sky,high\n" > /root/startup_scripts/my_startup_script.sh

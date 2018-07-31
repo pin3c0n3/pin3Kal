@@ -13,7 +13,7 @@ function optionsClean() {
 	done
 }
 
-printf "\033[1;47m  Version 0.9.5 - pin3Kal\033[1;m\n\033[1;46m  Created by Philip Kohn | https://www.philipkohn.com | @pin3c0n3  \033[1;m\n"
+printf "\033[1;47m  Version 0.9.6 - pin3Kal\033[1;m\n\033[1;46m  Created by Philip Kohn | https://www.philipkohn.com | @pin3c0n3  \033[1;m\n"
 
 #define what to do for each option
 select opt in "${options[@]}"
@@ -58,7 +58,7 @@ do
 		printf "\033[1;41m Video driver install round #2...\x1b[0m\n\n"
 		apt-get install -y nvidia-vdpau-driver vdpau-va-driver mesa-utils
 		printf "\033[1;41m Video driver install round #3...\x1b[0m\n\n"
-		apt-get install -y install bumblebee-nvidia
+		apt-get install -y bumblebee-nvidia
 		echo "Downloading VirtualGL"
 		printf "\033[1;41m DownloadingVirtualGL...\x1b[0m\n\n"
 		wget -P ~/Downloads "https://sourceforge.net/projects/virtualgl/files/2.5.2/virtualgl_2.5.2_amd64.deb"
@@ -106,8 +106,8 @@ do
 		;;
 		"9-Startup-Settings")
 		printf "\033[1;41m Telling the system to load a startup script...\x1b[0m\n\n"
-		mkdir .config/autostart
-		printf "[Desktop Entry]\9392nName=Startup\nGenericName=Stuff to do at Startup\nComment=Crap\nExec=/root/startup_scripts/my_startup_script.sh\nTerminal=false\nType=Application\nX-GNOME-Autostart-enabled=true" > .config/autostart/my_script.desktop
+		mkdir ~/.config/autostart
+		printf "[Desktop Entry]\9392nName=Startup\nGenericName=Stuff to do at Startup\nComment=Crap\nExec=/root/startup_scripts/my_startup_script.sh\nTerminal=false\nType=Application\nX-GNOME-Autostart-enabled=true" > ~/.config/autostart/my_script.desktop
 		printf "\033[1;41m Setting what to start...\x1b[0m\n\n"
 		mkdir /root/startup_scripts
 		printf "#!/bin/bash\n\n#Make the keyboard do stuffs\nmsi-keyboard -m normal -c left,sky,high -c middle,sky,high -c right,sky,high\n" > /root/startup_scripts/my_startup_script.sh

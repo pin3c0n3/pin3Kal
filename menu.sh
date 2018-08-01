@@ -107,7 +107,7 @@ do
 		"9-Startup-Settings")
 		printf "\033[1;41m Telling the system to load a startup script...\x1b[0m\n\n"
 		mkdir /root/.config/autostart
-		printf "[Desktop Entry]\9392nName=Startup\nGenericName=Stuff to do at Startup\nComment=Crap\nExec=/root/startup_scripts/my_startup_script.sh\nTerminal=false\nType=Application\nX-GNOME-Autostart-enabled=true" > /root/.config/autostart/my_script.desktop
+		printf "[Desktop Entry]\nName=Startup\nGenericName=Stuff to do at Startup\nComment=Crap\nExec=/root/startup_scripts/my_startup_script.sh\nTerminal=false\nType=Application\nX-GNOME-Autostart-enabled=true" > /root/.config/autostart/my_script.desktop
 		printf "\033[1;41m Setting what to start...\x1b[0m\n\n"
 		mkdir /root/startup_scripts
 		printf "#!/bin/bash\n\n#Make the keyboard do stuffs\nmsi-keyboard -m normal -c left,sky,high -c middle,sky,high -c right,sky,high\n" > /root/startup_scripts/my_startup_script.sh
@@ -148,7 +148,7 @@ do
 		sensors
 		read -n 1 -s -r -p "Press any key to continue"
 		printf "\033[1;41m Installing conky...\x1b[0m\n\n"
-		apt-get install -y conky conky-all
+		apt-get install -y conky conky-all acpi
 		printf "\033[1;41m Copying some files...\x1b[0m\n\n"
 		cp conky/conkyrc ~/.conkyrc
 		cp -r conky/conky_scripts/ /root/startup_scripts/ 

@@ -101,7 +101,7 @@ do
 		nmcli connection import type openvpn file ~/openvpn/US\ Chicago.ovpn
 		nmcli connection import type openvpn file ~/openvpn/US\ New\ York\ City.ovpn
 		nmcli connection import type openvpn file ~/openvpn/US\ Florida.ovpn
-		printf "\033[1;41m Open each connection and enter username & password...\x1b[0m\n\n"
+		printf "\033[1;41m *Open each connection and enter username & password...\n *In VPN settings, open each VPN connection and go to Identity > Advanced > Security and uncheck verify CRL from file\n *You may also need change the password setting to store password for all users in the Identity tab\x1b[0m\n\n"
 		optionsClean
 		;;
 		"9-Startup-Settings")

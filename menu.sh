@@ -151,7 +151,9 @@ do
 		apt-get install -y conky conky-all acpi
 		printf "\033[1;41m Copying some files...\x1b[0m\n\n"
 		cp conky/conkyrc ~/.conkyrc
-		cp -r conky/conky_scripts/ /root/startup_scripts/ 
+		cp -r conky/conky_scripts/ /root/startup_scripts/
+		printf "\033(1;41m Setting script to execute...\x1b[0m\n\n"
+		chmod +x /root/startup_scripts/conky_scripts/network_established 
 		printf "\033[1;41m Adding conky to startup...\x1b[0m\n\n"
 		printf "\n#Start Conky \nconky\n" >> /root/startup_scripts/my_startup_script.sh
 		printf "\033[1;41m Done!\x1b[0m\n\n"

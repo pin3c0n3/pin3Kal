@@ -140,20 +140,13 @@ do
 		optionsClean
 		;;
 		"12-Conky-Install")
-		printf "\033[1;41m Installing lm-sensors...\x1b[0m\n\n"
-		apt-get install -y lm-sensors
-		printf "\033[1;41m Detecting sensors...type yes to all questions...\x1b[0m\n\n"
-		sensors-detect
-		printf "\033[1;41m Testing detected sensors...\x1b[0m\n\n"
-		sensors
-		read -n 1 -s -r -p "Press any key to continue"
 		printf "\033[1;41m Installing conky...\x1b[0m\n\n"
 		apt-get install -y conky conky-all acpi
 		printf "\033[1;41m Copying some files...\x1b[0m\n\n"
-		cp conky/conkyrc ~/.conkyrc
-		cp -r conky/conky_scripts/ /root/startup_scripts/
+		cp conky/conkyrc /root/.conkyrc
+		cp -r conky/conky_scripts/ /root/
 		printf "\033(1;41m Setting script to execute...\x1b[0m\n\n"
-		chmod +x /root/startup_scripts/conky_scripts/network_established 
+		chmod +x /root/conky_scripts/network_established 
 		printf "\033[1;41m Adding conky to startup...\x1b[0m\n\n"
 		printf "\n#Start Conky \nconky\n" >> /root/startup_scripts/my_startup_script.sh
 		printf "\033[1;41m Done!\x1b[0m\n\n"

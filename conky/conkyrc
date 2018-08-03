@@ -58,39 +58,63 @@ TEXT
 #${image $HOME/Pictures/kali.jpg -p 130,0 -s 150x100}
 #${image $HOME/Pictures/kali1.jpg -p 100,0 -s 150x100}
 #${image $HOME/Pictures/kali2.jpg -p 130,0 -s 150x100}
-${image /root/startup_scripts/conky_scripts/kali3.png -p 100,0 -s 150x100}
+${image /root/conky_scripts/kali3.png -p 100,0 -s 150x100}
 ${color1}${font Vibrocentric:style=bold:size=14}Kali Linux $font${color3}
 #${hr 0}$color
 ${color2}Kernel:$color ${kernel}
 ${color2}Host:$color ${nodename}
 ${color2}User:$color ${exec whoami}
 ${color2}Uptime:$color ${format_time $uptime "\dd \hh \mm \ss"}
-${color2}AC Adaptor:$color ${acpiacadapter}
-${color2}Time Remaining: $color${exec acpi -V | grep -m1 Battery | cut -d "," -f 3}
-#${color2}Battery: $color${exec acpi -V | grep -m1 Battery | cut -d "," -f 2}
-${color2}Battery: $color${battery_percent BAT1}%${alignr}${battery_bar 3,160 BAT1}
+#${color2}AC Adaptor:$color ${acpiacadapter}
+${color2}AC Adaptor:$color ${exec acpi -a | cut -d ":" -f 2}
+${color2}Time Remaining: $color${exec acpi | grep -m1 Battery | cut -d "," -f 3}
+${color2}Battery: $color${exec acpi -b | cut -d "," -f 2}${alignr}${battery_bar 3,160 BAT1}
+#${color2}Battery: $color${battery_percent BAT1}%${alignr}${battery_bar 3,160 BAT1}
 #
-#Processor
+#Processor (using LM-Sensors - NOT working anymore)
+#${color1}${font Vibrocentric:style=bold:size=14}Processor $font${color3}${voffset 1}${hr 0}$color
+#${color}${exec cat /proc/cpuinfo | grep 'model name' | sort -u | cut -c14-39}
+#${color2}Frequency - ${color}${freq 1} MHz
+#${color2}CPU 1 Usage: $color${cpu cpu0}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 0" | awk '{print $3}'}
+#${voffset -4}${cpubar cpu0 3,250}
+#${color2}CPU 2 Usage: $color${cpu cpu1}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 0" | awk '{print $3}'}
+#${voffset -4}${cpubar cpu1 3,250}
+#${color2}CPU 3 Usage: $color${cpu cpu2}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 1" | awk '{print $3}'}
+#${voffset -4}${cpubar cpu2 3,250}
+#${color2}CPU 4 Usage: $color${cpu cpu3}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 1" | awk '{print $3}'}
+#${voffset -4}${cpubar cpu3 4,250}
+#${color2}CPU 5 Usage: $color${cpu cpu4}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 2" | awk '{print $3}'}
+#${voffset -4}${cpubar cpu4 4,250}
+#${color2}CPU 6 Usage: $color${cpu cpu5}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 2" | awk '{print $3}'}
+#${voffset -4}${cpubar cpu5 3,250}
+#${color2}CPU 7 Usage: $color${cpu cpu6}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 3" | awk '{print $3}'}
+#${voffset -4}${cpubar cpu6 3,250}
+#${color2}CPU 8 Usage: $color${cpu cpu7}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 3" | awk '{print $3}'}
+#${voffset -4}${cpubar cpu7 3,250}
+#${color2}Overall Usage: $color$cpu% ${alignr}${color2}Temp: $color ${exec sensors| grep "Package" | awk '{print $4}'}
+#${color}${cpugraph 20,250 3299cc 3299cc}
+#
+#Processor (using ACPI)
 ${color1}${font Vibrocentric:style=bold:size=14}Processor $font${color3}${voffset 1}${hr 0}$color
 ${color}${exec cat /proc/cpuinfo | grep 'model name' | sort -u | cut -c14-39}
 ${color2}Frequency - ${color}${freq 1} MHz
-${color2}CPU 1 Usage: $color${cpu cpu0}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 0" | awk '{print $3}'}
+${color2}CPU 1 Usage: $color${cpu cpu0}% 
 ${voffset -4}${cpubar cpu0 3,250}
-${color2}CPU 2 Usage: $color${cpu cpu1}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 0" | awk '{print $3}'}
+${color2}CPU 2 Usage: $color${cpu cpu1}% 
 ${voffset -4}${cpubar cpu1 3,250}
-${color2}CPU 3 Usage: $color${cpu cpu2}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 1" | awk '{print $3}'}
+${color2}CPU 3 Usage: $color${cpu cpu2}% 
 ${voffset -4}${cpubar cpu2 3,250}
-${color2}CPU 4 Usage: $color${cpu cpu3}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 1" | awk '{print $3}'}
+${color2}CPU 4 Usage: $color${cpu cpu3}% 
 ${voffset -4}${cpubar cpu3 4,250}
-${color2}CPU 5 Usage: $color${cpu cpu4}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 2" | awk '{print $3}'}
+${color2}CPU 5 Usage: $color${cpu cpu4}% 
 ${voffset -4}${cpubar cpu4 4,250}
-${color2}CPU 6 Usage: $color${cpu cpu5}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 2" | awk '{print $3}'}
+${color2}CPU 6 Usage: $color${cpu cpu5}% 
 ${voffset -4}${cpubar cpu5 3,250}
-${color2}CPU 7 Usage: $color${cpu cpu6}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 3" | awk '{print $3}'}
+${color2}CPU 7 Usage: $color${cpu cpu6}% 
 ${voffset -4}${cpubar cpu6 3,250}
-${color2}CPU 8 Usage: $color${cpu cpu7}% ${alignr}${color2}Temp: $color ${exec sensors| grep "Core 3" | awk '{print $3}'}
+${color2}CPU 8 Usage: $color${cpu cpu7}% 
 ${voffset -4}${cpubar cpu7 3,250}
-${color2}Overall Usage: $color$cpu% ${alignr}${color2}Temp: $color ${exec sensors| grep "Package" | awk '{print $4}'}
+${color2}Overall Usage: $color$cpu% ${alignr}${color2}Temp: $color ${exec acpi -t | grep "Thermal 1" | cut -d " " -f 4,6}
 ${color}${cpugraph 20,250 3299cc 3299cc}
 #
 #Top Processes
@@ -131,9 +155,9 @@ ${top_mem name 5}${goto 125}${top_mem pid 5}${goto 170}${top_mem cpu 5}${goto 21
 ${color1}${font Vibrocentric:style=bold:size=14}Disks $font${color3}${voffset 1}${hr 0}$color
 ${color2}Root:$color ${fs_used /}/${fs_size /}  ${alignr}${fs_used_perc /}% Used
 ${voffset -4}${fs_bar 3,250}
-${color2}Drive I/O: $color${diskio /dev/sda}
+${color2}Drive I/O: $color${diskio /dev/nvme0n1}
 ${color2}${goto 45}Read${color2}${goto 180}Write
-${color}${voffset -4}${diskiograph_read /dev/sda 15,120 3299cc 3299cc}${alignr}${color}${diskiograph_write /dev/sda 15,120 3299cc 3299cc}
+${color}${voffset -4}${diskiograph_read /dev/nvme0n1 15,120 3299cc 3299cc}${alignr}${color}${diskiograph_write /dev/nvme0n1 15,120 3299cc 3299cc}
 #
 #${if_existing /media/STUFF}
 #${color2}STUFF: $color${fs_used /media/STUFF}/${fs_size /media/STUFF} ${alignr}${fs_free_perc /media/STUFF}% Free
@@ -173,4 +197,4 @@ ${color2}Total:$color${goto 45}${totaldown mon0} ${goto 135}${color2}Total:$colo
 #
 #Connections
 ${color1}${font Vibrocentric:style=bold:size=14}Connections $font${color3}${voffset 1}${hr 0}$color
-${exec /root/startup_scripts/conky_scripts/network_established}
+${exec /root/conky_scripts/network_established}
